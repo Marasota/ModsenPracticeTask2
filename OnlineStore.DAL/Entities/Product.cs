@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStore.BLL.Models
+namespace OnlineStore.DAL.Entities
 {
-    internal class OrderDto
+    internal class Product
     {
     }
 }

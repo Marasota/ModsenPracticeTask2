@@ -1,4 +1,8 @@
-﻿namespace OnlineStore.DAL.Repositories
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+
+namespace OnlineStore.DAL.Repositories
 {
     public interface IRepository<T> where T : class
     {
