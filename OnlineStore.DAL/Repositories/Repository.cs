@@ -1,4 +1,5 @@
-﻿namespace OnlineStore.DAL.Repositories
+﻿
+namespace OnlineStore.DAL.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
