@@ -1,5 +1,7 @@
-﻿
-namespace OnlineStore.DAL.Repositories
+﻿using OnlineStore.DAL.Repositories.Interfaces;
+using System.Linq.Expressions;
+
+namespace OnlineStore.DAL.Repositories.Implementations
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -42,6 +44,11 @@ namespace OnlineStore.DAL.Repositories
                 _dbSet.Remove(entity);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<T>> GetByConditionAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).ToListAsync();
         }
     }
 }
