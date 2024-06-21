@@ -1,6 +1,7 @@
 ﻿using OnlineStore.DAL.Entities;
+using OnlineStore.DAL.Repositories.Interfaces;
 
-namespace OnlineStore.DAL.Repositories
+namespace OnlineStore.DAL.Repositories.Implementations
 {
     public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
