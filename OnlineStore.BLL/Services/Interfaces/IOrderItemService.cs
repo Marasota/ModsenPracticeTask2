@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStore.BLL.Models
+namespace OnlineStore.BLL.Services.Interfaces
 {
-    internal class OrderDto
+    internal class IOrderItemService
     {
     }
 }

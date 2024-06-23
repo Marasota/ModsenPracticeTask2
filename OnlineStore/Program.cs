@@ -1,11 +1,12 @@
 using System.Text.Json.Serialization;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureHttpJsonOptions(options =>
-{
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
-});
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.AddContext<AppJsonSerializerContext>();
+    });
 
 var app = builder.Build();
 
