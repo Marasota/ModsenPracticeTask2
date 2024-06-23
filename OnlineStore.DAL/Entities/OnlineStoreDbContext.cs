@@ -1,21 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore.DAL.Entities;
 
-namespace OnlineStore.DAL
+namespace OnlineStore.DAL.Entities
 {
     public class OnlineStoreDbContext : DbContext
     {
         public OnlineStoreDbContext(DbContextOptions<OnlineStoreDbContext> options)
             : base(options)
         {
-          //  Database.EnsureCreated();
+            //  Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OnlineStore;Trusted_Connection=True;"); //см в appsittings
-            }
         }
 
         public DbSet<Product> Products { get; set; }
@@ -36,7 +31,7 @@ namespace OnlineStore.DAL
                       .WithMany(c => c.Products)
                       .HasForeignKey(e => e.CategoryId)
                 // При удалении Category, CategoryId становится null
-                      .OnDelete(DeleteBehavior.SetNull); 
+                      .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -52,7 +47,7 @@ namespace OnlineStore.DAL
                       .WithMany(u => u.Orders)
                       .HasForeignKey(e => e.UserId)
                 // При удалении User, каскадно удаляются связанные Order
-                      .OnDelete(DeleteBehavior.Cascade); 
+                      .OnDelete(DeleteBehavior.Cascade);
                 entity.Property(e => e.OrderDate).IsRequired();
             });
 
@@ -63,12 +58,12 @@ namespace OnlineStore.DAL
                       .WithMany(o => o.OrderItems)
                       .HasForeignKey(e => e.OrderId)
                 // При удалении Order, каскадно удаляются связанные OrderItem
-                      .OnDelete(DeleteBehavior.Cascade); 
+                      .OnDelete(DeleteBehavior.Cascade);
                 entity.HasOne(e => e.Product)
                       .WithMany()
                       .HasForeignKey(e => e.ProductId)
                 // При удалении Product, каскадно удаляются связанные OrderItem
-                      .OnDelete(DeleteBehavior.Cascade); 
+                      .OnDelete(DeleteBehavior.Cascade);
                 entity.Property(e => e.Quantity).IsRequired();
             });
 
