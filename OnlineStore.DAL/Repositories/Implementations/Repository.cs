@@ -1,14 +1,16 @@
-﻿using OnlineStore.DAL.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DAL.Entities;
+using OnlineStore.DAL.Repositories.Interfaces;
 using System.Linq.Expressions;
 
 namespace OnlineStore.DAL.Repositories.Implementations
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly ApplicationDbContext _context;
+        protected readonly OnlineStoreDbContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public Repository(ApplicationDbContext context)
+        public Repository(OnlineStoreDbContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();

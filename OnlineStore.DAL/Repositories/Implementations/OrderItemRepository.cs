@@ -5,7 +5,7 @@ namespace OnlineStore.DAL.Repositories.Implementations
 {
     public class OrderItemRepository : Repository<OrderItem>, IOrderItemRepository
     {
-        public OrderItemRepository(ApplicationDbContext context) : base(context)
+        public OrderItemRepository(OnlineStoreDbContext context) : base(context)
         {
         }
     }

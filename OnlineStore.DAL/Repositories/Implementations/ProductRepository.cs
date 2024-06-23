@@ -9,7 +9,7 @@ namespace OnlineStore.DAL.Repositories.Implementations
 {
     public class ProductRepository : Repository<Product>, IProductRepository
     {
-        public ProductRepository(ApplicationDbContext context) : base(context)
+        public ProductRepository(OnlineStoreDbContext context) : base(context)
         {
         }
 
