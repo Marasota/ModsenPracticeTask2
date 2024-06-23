@@ -71,7 +71,7 @@ namespace OnlineStore.DAL.Entities
             {
                 entity.HasKey(e => e.UserId);
                 entity.Property(e => e.UserName).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.PasswordHash).IsRequired();
+                entity.Property(e => e.Password).IsRequired();
             });
         }
 

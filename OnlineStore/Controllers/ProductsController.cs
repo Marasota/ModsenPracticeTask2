@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.BLL.Models;
+using OnlineStore.BLL.DTOs;
 using OnlineStore.BLL.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
