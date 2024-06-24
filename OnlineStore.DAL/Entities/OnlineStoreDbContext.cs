@@ -71,7 +71,11 @@ namespace OnlineStore.DAL.Entities
             {
                 entity.HasKey(e => e.UserId);
                 entity.Property(e => e.UserName).IsRequired().HasMaxLength(50);
+<<<<<<< HEAD
                 entity.Property(e => e.Password).IsRequired();
+=======
+                entity.Property(e => e.PasswordHash).IsRequired();
+>>>>>>> origin/anna_m
             });
         }
 

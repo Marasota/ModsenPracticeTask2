@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using FluentValidation;
 using OnlineStore.BLL.DTOs;
 using OnlineStore.BLL.Services.Interfaces;
@@ -82,5 +83,17 @@ namespace OnlineStore.BLL.Services.Implementations
         {
             await _userRepository.DeleteUserAsync(id);
         }
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OnlineStore.BLL.Services.Implementations
+{
+    internal class UserService
+    {
+>>>>>>> origin/anna_m
     }
 }
