@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.BLL.Services.Interfaces
 {
+<<<<<<<<< Temporary merge branch 1
     public interface IUserService
     {
         Task<IEnumerable<UserDto>> GetAllUsersAsync();
@@ -17,4 +18,9 @@ namespace OnlineStore.BLL.Services.Interfaces
         Task DeleteUserAsync(int id);
     }
 
+=========
+    internal class IUserService
+    {
+    }
+>>>>>>>>> Temporary merge branch 2
 }

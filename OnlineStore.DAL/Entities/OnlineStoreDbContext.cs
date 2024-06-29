@@ -7,7 +7,7 @@ namespace OnlineStore.DAL.Entities
         public OnlineStoreDbContext(DbContextOptions<OnlineStoreDbContext> options)
             : base(options)
         {
-            //  Database.EnsureCreated();
+              //Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,7 +30,6 @@ namespace OnlineStore.DAL.Entities
                 entity.HasOne(e => e.Category)
                       .WithMany(c => c.Products)
                       .HasForeignKey(e => e.CategoryId)
-                // При удалении Category, CategoryId становится null
                       .OnDelete(DeleteBehavior.SetNull);
             });
 
@@ -46,7 +45,6 @@ namespace OnlineStore.DAL.Entities
                 entity.HasOne(e => e.User)
                       .WithMany(u => u.Orders)
                       .HasForeignKey(e => e.UserId)
-                // При удалении User, каскадно удаляются связанные Order
                       .OnDelete(DeleteBehavior.Cascade);
                 entity.Property(e => e.OrderDate).IsRequired();
             });
@@ -57,12 +55,10 @@ namespace OnlineStore.DAL.Entities
                 entity.HasOne(e => e.Order)
                       .WithMany(o => o.OrderItems)
                       .HasForeignKey(e => e.OrderId)
-                // При удалении Order, каскадно удаляются связанные OrderItem
                       .OnDelete(DeleteBehavior.Cascade);
                 entity.HasOne(e => e.Product)
                       .WithMany()
                       .HasForeignKey(e => e.ProductId)
-                // При удалении Product, каскадно удаляются связанные OrderItem
                       .OnDelete(DeleteBehavior.Cascade);
                 entity.Property(e => e.Quantity).IsRequired();
             });
@@ -72,6 +68,9 @@ namespace OnlineStore.DAL.Entities
                 entity.HasKey(e => e.UserId);
                 entity.Property(e => e.UserName).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Password).IsRequired();
+=========
+                entity.Property(e => e.PasswordHash).IsRequired();
+>>>>>>>>> Temporary merge branch 2
             });
         }
 

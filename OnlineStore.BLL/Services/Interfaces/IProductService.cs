@@ -1,4 +1,5 @@
-﻿
+﻿using OnlineStore.BLL.DTOs;
+
 namespace OnlineStore.BLL.Services.Interfaces
 {
     public interface IProductService

@@ -1,4 +1,10 @@
-﻿
+﻿using AutoMapper;
+using FluentValidation;
+using OnlineStore.BLL.DTOs;
+using OnlineStore.BLL.Services.Interfaces;
+using OnlineStore.DAL.Entities;
+using OnlineStore.DAL.Repositories.Interfaces;
+
 namespace OnlineStore.BLL.Services
 {
     public class ProductService : IProductService
@@ -49,6 +55,7 @@ namespace OnlineStore.BLL.Services
         {
             var products = await _productRepository.GetProductsByCategoryAsync(categoryId);
             return _mapper.Map<IEnumerable<ProductDTO>>(products);
+
         }
     }
 }

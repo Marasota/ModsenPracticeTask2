@@ -1,13 +1,7 @@
 ﻿using FluentValidation;
 using OnlineStore.BLL.DTOs;
-using OnlineStore.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OnlineStore.BLL.Validator
+namespace OnlineStore.BLL.Validators
 {
     public class UserValidator : AbstractValidator<UserDto>
     {

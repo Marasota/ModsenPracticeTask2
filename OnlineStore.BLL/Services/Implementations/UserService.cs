@@ -1,4 +1,10 @@
 ﻿
+﻿using FluentValidation;
+using OnlineStore.BLL.DTOs;
+using OnlineStore.BLL.Services.Interfaces;
+using OnlineStore.DAL.Entities;
+using OnlineStore.DAL.Repositories.Interfaces;
+
 namespace OnlineStore.BLL.Services.Implementations
 {
     public class UserService : IUserService
@@ -49,7 +55,7 @@ namespace OnlineStore.BLL.Services.Implementations
             var user = new User
             {
                 UserName = userDto.UserName,
-                Password = userDto.Password 
+                Password = userDto.Password
             };
 
             await _userRepository.AddUserAsync(user);
