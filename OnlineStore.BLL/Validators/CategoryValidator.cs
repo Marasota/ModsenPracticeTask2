@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using OnlineStore.BLL.DTOs;
 
-namespace OnlineStore.BLL.Validator
+namespace OnlineStore.BLL.Validators
 {
     public class CategoryValidator : AbstractValidator<CategoryDto>
     {

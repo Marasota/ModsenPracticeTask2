@@ -1,18 +1,8 @@
-<<<<<<< HEAD
-﻿using OnlineStore.BLL.DTOs;
-using OnlineStore.DAL.Entities;
-using System;
-=======
-﻿using System;
->>>>>>> origin/anna_m
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using OnlineStore.BLL.DTOs;
 
 namespace OnlineStore.BLL.Services.Interfaces
 {
-<<<<<<< HEAD
     public interface ICategoryService
     {
         Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync();
@@ -22,9 +12,4 @@ namespace OnlineStore.BLL.Services.Interfaces
         Task DeleteCategoryAsync(int id);
     }
 
-=======
-    internal class ICategoryService
-    {
-    }
->>>>>>> origin/anna_m
 }

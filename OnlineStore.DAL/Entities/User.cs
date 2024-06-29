@@ -10,11 +10,11 @@ namespace OnlineStore.DAL.Entities
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
-<<<<<<< HEAD
+
         public string Password{ get; set; }
-=======
+
         public string PasswordHash { get; set; }
->>>>>>> origin/anna_m
+
         public ICollection<Order> Orders { get; set; }
     }
 

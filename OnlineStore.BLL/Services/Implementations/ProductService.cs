@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineStore.BLL.Services
-{
-    internal class ProductService
-    {
-=======
-﻿using AutoMapper;
+using AutoMapper;
 using FluentValidation;
 using OnlineStore.BLL.DTOs;
 using OnlineStore.BLL.Services.Interfaces;
@@ -67,7 +55,7 @@ namespace OnlineStore.BLL.Services
         {
             var products = await _productRepository.GetProductsByCategoryAsync(categoryId);
             return _mapper.Map<IEnumerable<ProductDTO>>(products);
+
         }
->>>>>>> origin/anna_m
     }
 }

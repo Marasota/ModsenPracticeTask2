@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ﻿using FluentValidation;
 using OnlineStore.BLL.DTOs;
 using OnlineStore.BLL.Services.Interfaces;
@@ -75,17 +75,5 @@ namespace OnlineStore.BLL.Services
         {
             await _categoryRepository.DeleteCategoryAsync(id);
         }
-=======
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineStore.BLL.Services
-{
-    internal class CategoryService
-    {
->>>>>>> origin/anna_m
     }
 }
