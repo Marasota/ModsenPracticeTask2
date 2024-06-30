@@ -1,0 +1,9 @@
+﻿using OnlineStore.DAL.Entities;
+
+namespace OnlineStore.DAL.Repositories.Interfaces
+{
+    public interface IOrderRepository : IRepository<Order>
+    {
+        Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId);
+    }
+}
