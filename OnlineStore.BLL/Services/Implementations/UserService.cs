@@ -18,9 +18,9 @@ namespace OnlineStore.BLL.Services.Implementations
             _validator = validator;
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = await _userRepository.GetAllUsersAsync();
+            var users = await _userRepository.GetAllAsync();
             return users.Select(u => new UserDto
             {
                 Id = u.UserId,
@@ -29,9 +29,9 @@ namespace OnlineStore.BLL.Services.Implementations
             }).ToList();
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
             {
                 return null;
@@ -44,7 +44,7 @@ namespace OnlineStore.BLL.Services.Implementations
             };
         }
 
-        public async Task AddUserAsync(UserDto userDto)
+        public async Task AddAsync(UserDto userDto)
         {
             var validationResult = await _validator.ValidateAsync(userDto);
             if (!validationResult.IsValid)
@@ -58,10 +58,10 @@ namespace OnlineStore.BLL.Services.Implementations
                 Password = userDto.Password
             };
 
-            await _userRepository.AddUserAsync(user);
+            await _userRepository.AddAsync(user);
         }
 
-        public async Task UpdateUserAsync(UserDto userDto)
+        public async Task UpdateAsync(UserDto userDto)
         {
             var validationResult = await _validator.ValidateAsync(userDto);
             if (!validationResult.IsValid)
@@ -76,12 +76,12 @@ namespace OnlineStore.BLL.Services.Implementations
                 Password = userDto.Password
             };
 
-            await _userRepository.UpdateUserAsync(user);
+            await _userRepository.UpdateAsync(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            await _userRepository.DeleteUserAsync(id);
+            await _userRepository.DeleteAsync(id);
         }
     }
 }
