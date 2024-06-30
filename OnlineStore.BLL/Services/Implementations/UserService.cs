@@ -1,47 +1,40 @@
-﻿
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using OnlineStore.BLL.DTOs;
 using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.DAL.Entities;
 using OnlineStore.DAL.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineStore.BLL.Services.Implementations
 {
     public class UserService : IUserService
     {
+        private readonly IRepository<User> _repository;
         private readonly IUserRepository _userRepository;
         private readonly IValidator<UserDto> _validator;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IValidator<UserDto> validator)
+        public UserService(IRepository<User> repository, IUserRepository userRepository, IValidator<UserDto> validator, IMapper mapper)
         {
+            _repository = repository;
             _userRepository = userRepository;
             _validator = validator;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
         {
-            var users = await _userRepository.GetAllUsersAsync();
-            return users.Select(u => new UserDto
-            {
-                Id = u.UserId,
-                UserName = u.UserName,
-                Password = u.Password
-            }).ToList();
+            var users = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<UserDto>>(users);
         }
 
         public async Task<UserDto> GetUserByIdAsync(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return null;
-            }
-            return new UserDto
-            {
-                Id = user.UserId,
-                UserName = user.UserName,
-                Password = user.Password
-            };
+            var user = await _repository.GetByIdAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
 
         public async Task AddUserAsync(UserDto userDto)
@@ -52,13 +45,8 @@ namespace OnlineStore.BLL.Services.Implementations
                 throw new ValidationException(validationResult.Errors);
             }
 
-            var user = new User
-            {
-                UserName = userDto.UserName,
-                Password = userDto.Password
-            };
-
-            await _userRepository.AddUserAsync(user);
+            var user = _mapper.Map<User>(userDto);
+            await _repository.AddAsync(user);
         }
 
         public async Task UpdateUserAsync(UserDto userDto)
@@ -69,19 +57,13 @@ namespace OnlineStore.BLL.Services.Implementations
                 throw new ValidationException(validationResult.Errors);
             }
 
-            var user = new User
-            {
-                UserId = userDto.Id,
-                UserName = userDto.UserName,
-                Password = userDto.Password
-            };
-
-            await _userRepository.UpdateUserAsync(user);
+            var user = _mapper.Map<User>(userDto);
+            await _repository.UpdateAsync(user);
         }
 
         public async Task DeleteUserAsync(int id)
-    {
-            await _userRepository.DeleteUserAsync(id);
+        {
+            await _repository.DeleteAsync(id);
         }
     }
 }

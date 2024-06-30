@@ -6,7 +6,6 @@ using OnlineStore.DAL.Repositories.Interfaces;
 
 
 namespace OnlineStore.BLL.Services
->>>>>>>>> Temporary merge branch 2
 {
     internal class OrderItemService
     {
