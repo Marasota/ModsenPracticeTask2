@@ -11,6 +11,4 @@ namespace OnlineStore.BLL.Validators
                                 .MaximumLength(100).WithMessage("Category name must be less than 100 characters.");
         }
     }
-
-
 }
