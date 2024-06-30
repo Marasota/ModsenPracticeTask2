@@ -16,7 +16,7 @@ namespace OnlineStore.BLL.Validators
                 .NotEmpty().WithMessage("Username is required.")
                 .Length(1, 50).WithMessage("Username must be between 1 and 50 characters.")
                 .MustAsync(async (username, cancellation) => {
-                    var existingUser = await _userRepository.GetUserByUserNameAsync(username);
+                    var existingUser = await _userRepository.GetByUserNameAsync(username);
                     return existingUser == null;
                 }).WithMessage("Username already exists.");
 

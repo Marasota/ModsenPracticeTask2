@@ -33,7 +33,7 @@ namespace OnlineStore.BLL.Services.Implementations
 
         public async Task<UserDto> GetByIdAsync(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
             {
                 return null;
@@ -60,7 +60,7 @@ namespace OnlineStore.BLL.Services.Implementations
                 Password = userDto.Password
             };
 
-            await _userRepository.AddUserAsync(user);
+            await _userRepository.AddAsync(user);
         }
 
         public async Task UpdateAsync(UserDto userDto)
@@ -78,12 +78,12 @@ namespace OnlineStore.BLL.Services.Implementations
                 Password = userDto.Password
             };
 
-            await _userRepository.UpdateUserAsync(user);
+            await _userRepository.UpdateAsync(user);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _userRepository.DeleteUserAsync(id);
+            await _userRepository.DeleteAsync(id);
         }
     }
 }

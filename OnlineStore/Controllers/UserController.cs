@@ -20,14 +20,14 @@ namespace OnlineStore.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
-            var users = await _userService.GetAllUsersAsync();
+            var users = await _userService.GetAllAsync();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _userService.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -38,7 +38,7 @@ namespace OnlineStore.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUser(UserDto userDto)
         {
-            await _userService.AddUserAsync(userDto);
+            await _userService.AddAsync(userDto);
             return CreatedAtAction(nameof(GetUserById), new { id = userDto.Id }, userDto);
         }
 
@@ -50,14 +50,14 @@ namespace OnlineStore.WebAPI.Controllers
                 return BadRequest();
             }
 
-            await _userService.UpdateUserAsync(userDto);
+            await _userService.UpdateAsync(userDto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
-            await _userService.DeleteUserAsync(id);
+            await _userService.DeleteAsync(id);
             return NoContent();
         }
     }

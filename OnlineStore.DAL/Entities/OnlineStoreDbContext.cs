@@ -7,7 +7,7 @@ namespace OnlineStore.DAL.Entities
         public OnlineStoreDbContext(DbContextOptions<OnlineStoreDbContext> options)
             : base(options)
         {
-              //Database.EnsureCreated();
+              Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,6 +27,7 @@ namespace OnlineStore.DAL.Entities
             {
                 entity.HasKey(e => e.ProductId);
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Price).HasColumnType("decimal(10,2)");
                 entity.HasOne(e => e.Category)
                       .WithMany(c => c.Products)
                       .HasForeignKey(e => e.CategoryId)
@@ -69,6 +70,7 @@ namespace OnlineStore.DAL.Entities
                 entity.Property(e => e.UserName).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Password).IsRequired();
             });
+
         }
 
     }
