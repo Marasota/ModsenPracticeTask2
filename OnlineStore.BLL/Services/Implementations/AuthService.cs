@@ -4,6 +4,11 @@ using OnlineStore.BLL.DTOs.Register;
 using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.DAL.Entities;
 using OnlineStore.DAL.Repositories.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineStore.BLL.Services.Implementations
 {

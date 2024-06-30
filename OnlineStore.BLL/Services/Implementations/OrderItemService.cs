@@ -59,7 +59,7 @@ namespace OnlineStore.BLL.Services
             {
                 throw new NotFoundException("Order item not found");
             }
-            await _orderItemRepository.DeleteAsync(orderItem);
+            await _orderItemRepository.DeleteAsync(orderItem.OrderId);
         }
     }
 }

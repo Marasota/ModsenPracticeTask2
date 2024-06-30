@@ -4,9 +4,7 @@ using OnlineStore.BLL.DTOs;
 using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.DAL.Entities;
 using OnlineStore.DAL.Repositories.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace OnlineStore.BLL.Services.Implementations
 {

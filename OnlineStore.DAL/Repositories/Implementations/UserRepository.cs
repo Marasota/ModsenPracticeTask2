@@ -16,6 +16,5 @@ namespace OnlineStore.DAL.Repositories.Implementations
         {
             return await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
         }
-
     }
 }
