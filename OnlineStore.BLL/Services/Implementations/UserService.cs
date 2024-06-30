@@ -1,37 +1,39 @@
-
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using OnlineStore.BLL.DTOs;
 using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.DAL.Entities;
 using OnlineStore.DAL.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineStore.BLL.Services.Implementations
 {
     public class UserService : IUserService
     {
+        private readonly IRepository<User> _repository;
         private readonly IUserRepository _userRepository;
         private readonly IValidator<UserDto> _validator;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IValidator<UserDto> validator)
+        public UserService(IRepository<User> repository, IUserRepository userRepository, IValidator<UserDto> validator, IMapper mapper)
         {
+            _repository = repository;
             _userRepository = userRepository;
             _validator = validator;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = await _userRepository.GetAllUsersAsync();
-            return users.Select(u => new UserDto
-            {
-                Id = u.UserId,
-                UserName = u.UserName,
-                Password = u.Password
-            }).ToList();
+            var users = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<UserDto>>(users);
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
             {
                 return null;
@@ -44,7 +46,7 @@ namespace OnlineStore.BLL.Services.Implementations
             };
         }
 
-        public async Task AddUserAsync(UserDto userDto)
+        public async Task AddAsync(UserDto userDto)
         {
             var validationResult = await _validator.ValidateAsync(userDto);
             if (!validationResult.IsValid)
@@ -58,10 +60,10 @@ namespace OnlineStore.BLL.Services.Implementations
                 Password = userDto.Password
             };
 
-            await _userRepository.AddUserAsync(user);
+            await _userRepository.AddAsync(user);
         }
 
-        public async Task UpdateUserAsync(UserDto userDto)
+        public async Task UpdateAsync(UserDto userDto)
         {
             var validationResult = await _validator.ValidateAsync(userDto);
             if (!validationResult.IsValid)
@@ -76,12 +78,12 @@ namespace OnlineStore.BLL.Services.Implementations
                 Password = userDto.Password
             };
 
-            await _userRepository.UpdateUserAsync(user);
+            await _userRepository.UpdateAsync(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            await _userRepository.DeleteUserAsync(id);
+            await _userRepository.DeleteAsync(id);
         }
     }
 }

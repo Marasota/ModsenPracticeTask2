@@ -1,17 +1,64 @@
-using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc;
+using OnlineStore.BLL.DTOs;
+using OnlineStore.BLL.Services.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-// In SDK-style projects such as this one, several assembly attributes that were historically
-// defined in this file are now automatically added during build and populated with
-// values defined in project properties. For details of which attributes are included
-// and how to customise this process see: https://aka.ms/assembly-info-properties
+namespace OnlineStore.WebAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CategoryController : ControllerBase
+    {
+        private readonly ICategoryService _categoryService;
 
+        public CategoryController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
 
-// Setting ComVisible to false makes the types in this assembly not visible to COM
-// components.  If you need to access a type in this assembly from COM, set the ComVisible
-// attribute to true on that type.
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAllCategories()
+        {
+            var categories = await _categoryService.GetAllCategoriesAsync();
+            return Ok(categories);
+        }
 
-[assembly: ComVisible(false)]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CategoryDto>> GetCategoryById(int id)
+        {
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
+        }
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM.
+        [HttpPost]
+        public async Task<ActionResult> AddCategory(CategoryDto categoryDto)
+        {
+            await _categoryService.AddCategoryAsync(categoryDto);
+            return CreatedAtAction(nameof(GetCategoryById), new { id = categoryDto.CategoryId }, categoryDto);
+        }
 
-[assembly: Guid("1d2e54bc-3e2e-48b3-96cf-3ee6b574499b")]
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateCategory(int id, CategoryDto categoryDto)
+        {
+            if (id != categoryDto.CategoryId)
+            {
+                return BadRequest();
+            }
+
+            await _categoryService.UpdateCategoryAsync(categoryDto);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCategory(int id)
+        {
+            await _categoryService.DeleteCategoryAsync(id);
+            return NoContent();
+        }
+    }
+}
