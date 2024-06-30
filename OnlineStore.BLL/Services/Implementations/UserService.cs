@@ -25,19 +25,28 @@ namespace OnlineStore.BLL.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
             var users = await _repository.GetAllAsync();
             return _mapper.Map<IEnumerable<UserDto>>(users);
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
-            var user = await _repository.GetByIdAsync(id);
-            return _mapper.Map<UserDto>(user);
+            var user = await _userRepository.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return null;
+            }
+            return new UserDto
+            {
+                Id = user.UserId,
+                UserName = user.UserName,
+                Password = user.Password
+            };
         }
 
-        public async Task AddUserAsync(UserDto userDto)
+        public async Task AddAsync(UserDto userDto)
         {
             var validationResult = await _validator.ValidateAsync(userDto);
             if (!validationResult.IsValid)
@@ -45,11 +54,16 @@ namespace OnlineStore.BLL.Services.Implementations
                 throw new ValidationException(validationResult.Errors);
             }
 
-            var user = _mapper.Map<User>(userDto);
-            await _repository.AddAsync(user);
+            var user = new User
+            {
+                UserName = userDto.UserName,
+                Password = userDto.Password
+            };
+
+            await _userRepository.AddUserAsync(user);
         }
 
-        public async Task UpdateUserAsync(UserDto userDto)
+        public async Task UpdateAsync(UserDto userDto)
         {
             var validationResult = await _validator.ValidateAsync(userDto);
             if (!validationResult.IsValid)
@@ -57,13 +71,19 @@ namespace OnlineStore.BLL.Services.Implementations
                 throw new ValidationException(validationResult.Errors);
             }
 
-            var user = _mapper.Map<User>(userDto);
-            await _repository.UpdateAsync(user);
+            var user = new User
+            {
+                UserId = userDto.Id,
+                UserName = userDto.UserName,
+                Password = userDto.Password
+            };
+
+            await _userRepository.UpdateUserAsync(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            await _repository.DeleteAsync(id);
+            await _userRepository.DeleteUserAsync(id);
         }
     }
 }
